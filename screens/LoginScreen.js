@@ -36,7 +36,7 @@ state  = {
               </View>
               <View style={{alignItems:'center',marginTop:64}}>
                 <TouchableOpacity style={styles.continue} onPress={this.continue}>
-
+                  <Text style={styles.go}>Go</Text>
                 </TouchableOpacity>
               </View>
           </View>
@@ -85,5 +85,11 @@ const styles = StyleSheet.create({
     marginLeft:250,
     alignItems: 'flex-end',
     justifyContent: 'flex-end'
+  },
+  go:{
+    marginRight:30,
+    fontSize:30,
+    marginBottom:10,
+    color:'#fff'
   }
 });
