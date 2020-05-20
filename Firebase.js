@@ -29,13 +29,13 @@ class Firebase {
     });
   };
 
-  send = message => {
-    message.forEach(item => {
+  send = messages => {
+    messages.forEach(item => {
       const message = {
         text: item.text,
         timestamp: firebase.database.ServerValue.TIMESTAMP,
         user: item.user
-      };
+      }
       this.db.push(message);
     });
 
@@ -55,7 +55,7 @@ parse = message => {
 };
 
 get = callback => {
-  this.db.on("child_added", snapshot => callback(this.parse(snapshot)));
+  this.db.on('child_added', snapshot => callback(this.parse(snapshot)));
 };
 
 off(){
@@ -63,7 +63,7 @@ off(){
 }
 
 get db(){
-  return firebase.database().ref("message");
+  return firebase.database().ref("messages");
 }
 
 get uid(){

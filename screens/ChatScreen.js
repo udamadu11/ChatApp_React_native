@@ -1,19 +1,43 @@
 import React from 'react';
-import {View , Text , StyleSheet, TextInput, TouchableOpacity, Image} from 'react-native';
+import {Platform, KeyboardAvoidingView, SafeAreaView} from 'react-native';
+import {GiftedChat} from 'react-native-gifted-chat';
+
+import Firebase from '../Firebase';
 
 export default class LoginScreen extends React.Component{
-  render(){
-    return(
-      <View style={styles.container}>
-        <Text>Chat Screen</Text>
-      </View>
+
+state = {
+  message: []
+}
+  get user(){
+    return{
+      _id: Firebase.uid,
+      name: this.props.navigation.state.params.name
+    };
+  }
+
+  componentDidMount(){
+      Firebase.get(message =>
+          this.setState(previous => ({
+            message: GiftedChat.append(previous.message, message)
+      }))
     );
   }
+
+componentWillUnMount(){
+  Firebase.off();
 }
-const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    justifyContent: "center",
-    alignItems: "center"
+
+  render(){
+    const chat = <GiftedChat messages={this.state.messages} onSend={Firebase.send} user={this.user} />;
+
+    if(Platform.os === "android"){
+      return (
+        <KeyboardAvoidingView style={{flex:1}} behavior="padding" KeyboardVerticalOffset={30} enabled>
+          {chat}
+        </KeyboardAvoidingView>
+      );
+    }
+    return <SafeAreaView style={{flex:1}}>{chat}</SafeAreaView>
   }
-});
+}
