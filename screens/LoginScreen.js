@@ -22,7 +22,7 @@ state  = {
                  />
               </View>
               <View style={{marginHorizontal:140}}>
-                  <Text style={styles.header}>User Name</Text>
+                  <Text style={styles.header}>UserName</Text>
                   <TextInput
                     style = {styles.TextInput}
                     placeholder = "Trojan"
